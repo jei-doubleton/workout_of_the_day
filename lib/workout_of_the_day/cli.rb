@@ -1,5 +1,5 @@
 class WorkoutOfTheDay::CLI
-  attr_reader :workout_input, :more_workouts_input
+  attr_reader :workout_input
 
   def call
       list_workouts
@@ -9,12 +9,7 @@ class WorkoutOfTheDay::CLI
 
   def list_workouts
     puts "Today's Daily Workouts:"
-    puts <<-DOC
-      1. Crossfit: Saturday 190302
-      2. Rowing: 5000m with rate changes every 1000m: 22-26-22-26-22 r#andomly choose 1 of 3
-      3. Military: SOF WOD MAR 1
-      4. No Equipment, No Running Bodyweight WODs
-    DOC
+    @deals = WorkoutOfTheDay::Workout.all
   end
 
   def workout_menu_instructions
@@ -49,10 +44,10 @@ class WorkoutOfTheDay::CLI
 
   def more_workouts?
     puts "Would you like to see another workout? (y/n)"
-    @more_workouts_input = gets.strip.downcase
-    if @more_workouts_input == "y"
+    input = gets.strip.downcase
+    if input == "y"
       workout_menu
-    elsif @more_workouts_input == "n"
+    elsif input == "n"
       @workout_input = "exit"
     else
       invalid_input

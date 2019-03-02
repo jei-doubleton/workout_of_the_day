@@ -1,0 +1,17 @@
+Overall structure:
+command line interface for daily workouts, pulling from Crossfit, Rowing, Military, and Bodyweight WODs
+
+1. user types workout_of_the_day
+
+2. CLI shows list of available Workouts
+
+3. User chooses which workout they'd like to learn more about
+
+4. CLI shows more info on chosen workout
+
+
+Attributes of a Workout
+- name
+- description
+- url (optional)
+- time (optional)
