@@ -18,7 +18,7 @@ class WorkoutOfTheDay::CLI
   end
 
   def workout_menu_instructions
-    puts "Enter the number of the workout you'd like details on or enter 'exit' to exit the program."
+    puts "Enter the number of the workout you'd like details on, type list to see the workouts again, or type exit to leave the program."
   end
 
   def invalid_input
@@ -38,6 +38,8 @@ class WorkoutOfTheDay::CLI
         puts "military workout"
       elsif @workout_input == "4"
         puts "bodyweight workout"
+      elsif @workout_input == "list"
+        list_workouts
       elsif @workout_input != "exit"
         invalid_input
       end
