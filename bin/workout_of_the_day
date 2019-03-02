@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative "../lib/workout_of_the_day"
+
+WorkoutOfTheDay::CLI.new.call
