@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "../lib/workout_of_the_day"
+require "bundler/setup"
+require "workout_of_the_day"
 
 WorkoutOfTheDay::CLI.new.call

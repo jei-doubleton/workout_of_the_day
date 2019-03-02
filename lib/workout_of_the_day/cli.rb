@@ -1,5 +1,5 @@
 class WorkoutOfTheDay::CLI
-  attr_reader :workout_input
+  attr_reader :workout_input, :workout
 
   def call
       list_workouts
@@ -9,7 +9,11 @@ class WorkoutOfTheDay::CLI
 
   def list_workouts
     puts "Today's Daily Workouts:"
-    @deals = WorkoutOfTheDay::Workout.all
+    @workout = WorkoutOfTheDay::Workout.all
+
+    @workout.each.with_index(1) do |w, i|
+      puts "#{i}. #{w.name}"
+    end
   end
 
   def workout_menu_instructions
@@ -24,15 +28,10 @@ class WorkoutOfTheDay::CLI
   def workout_menu
     workout_menu_instructions
     @workout_input = gets.strip.downcase
+
     while @workout_input != "exit"
-      if @workout_input == "1"
-        puts "Crossfit workout"
-      elsif @workout_input == "2"
-        puts "Rowing workout"
-      elsif @workout_input == "3"
-        puts "military workout"
-      elsif @workout_input == "4"
-        puts "bodyweight workout"
+      if @workout_input.to_i > 0
+        puts @workout[@workout_input.to_i - 1]
       elsif @workout_input == "list"
         list_workouts
       elsif @workout_input != "exit"
