@@ -20,7 +20,14 @@ class WorkoutOfTheDay::Scraper
   end
 
   def self.scrape_rowing
+    doc = Nokogiri::HTML(open("https://www.concept2.com/indoor-rowers/training/wod"))
+    workouts = doc.search("table.daily-workout-info tr")
 
+    workouts.each do |w|
+      workout = WorkoutOfTheDay::Workout.new
+      workout.name = "#{w.css("section h3").text}: #{w.css("section h4").first.text}"
+      workout.description = "#{w.css("section h4 + p").text.chomp}"
+    end
   end
 
   def self.scrape_military
