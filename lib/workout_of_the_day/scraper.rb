@@ -15,9 +15,8 @@ class WorkoutOfTheDay::Scraper
 
     workout = WorkoutOfTheDay::Workout.new
     workout.name = "Crossfit: #{name}"
-    workout.url = "https://www.crossfit.com/#{url}"
-
-    #still need to add a scrape to grab description, based on workout.url
+    workout.url = "https://www.crossfit.com#{url}"
+    workout.description = Nokogiri::HTML(open(workout.url)).css("article div p").text
   end
 
   def self.scrape_rowing
