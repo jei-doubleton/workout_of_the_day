@@ -16,7 +16,6 @@ class WorkoutOfTheDay::Scraper
     workout = WorkoutOfTheDay::Workout.new
     workout.name = name
     workout.url = "https://www.crossfit.com/#{url}"
-    workout
   end
 
   def self.scrape_rowing
@@ -26,12 +25,16 @@ class WorkoutOfTheDay::Scraper
     workouts.each do |w|
       workout = WorkoutOfTheDay::Workout.new
       workout.name = "#{w.css("section h3").text}: #{w.css("section h4").first.text}"
-      workout.description = "#{w.css("section h4 + p").text.chomp}"
+      workout.description = "#{w.css("section h4 + p").text.strip}"
     end
   end
 
   def self.scrape_military
+    doc = Nokogiri::HTML(open("http://sofwods.com/wods/"))
 
+    workout = WorkoutOfTheDay::Workout.new
+    workout.name = doc.css("article h2").first.text.strip
+    workout.url = doc.css("article h2 a").first.attr("href")
   end
 
   def self.scrape_bodyweight
