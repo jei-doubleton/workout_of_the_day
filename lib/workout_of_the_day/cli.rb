@@ -9,7 +9,7 @@ class WorkoutOfTheDay::CLI
   end
 
   def load_workouts
-    puts "Welcome to your daily workout! Your workout options are now loading."
+    puts "Welcome to your daily workout! Your workout options are now loading..."
     WorkoutOfTheDay::Scraper.new
   end
 
