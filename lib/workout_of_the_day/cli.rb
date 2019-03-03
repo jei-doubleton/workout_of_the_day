@@ -1,7 +1,7 @@
 class WorkoutOfTheDay::CLI
   attr_reader :workout_input, :workout
 
-  @@grn = "\e[1;32m"
+  @@green = "\e[32m"
   @@blue = "\e[34m"
   @@gray = "\e[37m"
   @@gray_bkgd = "\e[47m"
@@ -10,12 +10,18 @@ class WorkoutOfTheDay::CLI
   @@default_bkgd = "\e[49m"
 
   def call
-    load_workouts
+
+    # Need to work on this flow!
+    # If you say Y to more_workouts?
+    # enter the workout you want
+    # after seeing workout, next prompt should be more_workouts?, not workout_menu!
+
     @workout_input = nil
+    load_workouts
+    list_workouts
     while @workout_input != "exit"
-      list_workouts
       workout_menu
-      more_workouts?
+      more_workouts? unless @workout_input == "exit"
     end
     goodbye
   end
@@ -47,18 +53,21 @@ class WorkoutOfTheDay::CLI
 
   def workout_menu
     workout_menu_instructions
-    @workout_input = gets.strip.downcase
+    input = gets.strip.downcase
 
-    if @workout_input.to_i > 0
+    if input.to_i > 0
+      @workout_input = input.to_i - 1
       puts ""
-      puts "#{@@gray_bkgd}#{@@black}-------#{@workout[@workout_input.to_i - 1].name}-------#{@@default_bkgd}"
-      puts "#{@@blue}#{@workout[@workout_input.to_i - 1].description}"
+      puts "#{@@gray_bkgd}#{@@black}-------#{@workout[@workout_input].name}-------#{@@default_bkgd}"
+      puts "#{@@green}#{@workout[@workout_input].description}"
       puts ""
-      puts "#{@@default_bkgd}#{@@gray}From: #{@workout[@workout_input.to_i - 1].url}#{@@default}"
+      puts "#{@@default_bkgd}#{@@gray}From: #{@@blue}#{@workout[@workout_input].url}#{@@default}"
       puts ""
-    elsif @workout_input == "list"
+    elsif input == "list"
       list_workouts
-    elsif @workout_input != "exit"
+    elsif input == "exit"
+      @workout_input = "exit"
+    else
       invalid_input
     end
   end
