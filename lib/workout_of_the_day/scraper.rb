@@ -36,8 +36,7 @@ class WorkoutOfTheDay::Scraper
     workout = WorkoutOfTheDay::Workout.new
     workout.name = "Military: #{doc.css("article h2").first.text.strip}"
     workout.url = doc.css("article h2 a").first.attr("href")
-
-    #need to add a scrape to grab description, based on workout.url
+    workout.description = Nokogiri::HTML(open(workout.url)).css("div.wpb_text_column.wpb_content_element p").text
   end
 
   def self.scrape_bodyweight
@@ -51,6 +50,4 @@ class WorkoutOfTheDay::Scraper
       workout.description = workout_descriptions[rand(0..workout_descriptions.length)].text
     end
   end
-
-
 end
