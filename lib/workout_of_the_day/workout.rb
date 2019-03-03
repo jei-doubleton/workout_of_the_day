@@ -1,9 +1,12 @@
 class WorkoutOfTheDay::Workout
-  attr_accessor :name, :description, :url
+  attr_reader :name, :description, :url
 
   @@all = []
 
-  def initialize
+  def initialize(name:, description:, url:)
+    @name = name
+    @description = description
+    @url = url
     @@all << self
   end
 

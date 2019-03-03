@@ -3,19 +3,18 @@ class WorkoutOfTheDay::Scraper
   def initialize
     scrape_crossfit
     scrape_rowing
-    scrape_military
-    scrape_bodyweight
+    # scrape_military
+    # scrape_bodyweight
   end
 
   def scrape_crossfit
     doc = Nokogiri::HTML(open("https://www.crossfit.com/workout/"))
 
-    workout = WorkoutOfTheDay::Workout.new
-    workout.name = "Crossfit: #{doc.css("h3 a").first.text}"
-    workout.url = "https://www.crossfit.com#{doc.css("h3 a").first.attr("href")}"
-    workout.description = Nokogiri::HTML(open(workout.url)).css("article div p").text
+    name = "Crossfit: #{doc.css("h3 a").first.text}"
+    url = "https://www.crossfit.com#{doc.css("h3 a").first.attr("href")}"
+    description = Nokogiri::HTML(open(url)).css("article").first.css("div p").text.gsub("Post reps completed to comments", "")
 
-    workout
+    workout = WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
   end
 
   def scrape_rowing
@@ -23,33 +22,35 @@ class WorkoutOfTheDay::Scraper
     workouts = doc.css("table.daily-workout-info tr")
 
     workouts.collect do |w|
-      workout = WorkoutOfTheDay::Workout.new
-      workout.name = "Rowing: #{w.css("section h4").first.text} (#{w.css("section h3").text})"
-      workout.url = "https://www.concept2.com/indoor-rowers/training/wod"
-      workout.description = "#{w.css("section h4 + p").text.strip}"
+      name = "Rowing: #{w.css("section h4").first.text} (#{w.css("section h3").text})"
+      url = "https://www.concept2.com/indoor-rowers/training/wod"
+      description = "#{w.css("section h4 + p").text.strip}"
+
+      WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
     end
   end
 
   def scrape_military
     doc = Nokogiri::HTML(open("http://sofwods.com/wods/"))
 
-    workout = WorkoutOfTheDay::Workout.new
-    workout.name = "Military: #{doc.css("article h2").first.text.strip}"
-    workout.url = doc.css("article h2 a").first.attr("href")
-    workout.description = Nokogiri::HTML(open(workout.url)).css("div.wpb_text_column.wpb_content_element p").text
+    name = "Military: #{doc.css("article h2").first.text.strip}"
+    url = doc.css("article h2 a").first.attr("href")
+    description = Nokogiri::HTML(open(url)).css("div.wpb_text_column.wpb_content_element p").text
 
-    workout
+    WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
   end
 
   def scrape_bodyweight
     doc = Nokogiri::HTML(open("http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"))
     workout_names = doc.css("div#wDiv h3")
+
     workout_names.collect.with_index do |w, i|
-      workout = WorkoutOfTheDay::Workout.new
-      workout.name = w.text
-      workout.url = "http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"
+      name = w.text
+      url = "http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"
       workout_descriptions = doc.css("div#wDiv ol")[i].css("li")
-      workout.description = workout_descriptions[rand(0..workout_descriptions.length-1)].text
+      description = workout_descriptions[rand(0..workout_descriptions.length-1)].text
+
+      WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
     end
   end
 end
