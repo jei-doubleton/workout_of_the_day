@@ -1,5 +1,5 @@
 class WorkoutOfTheDay::Workout
-  attr_accessor :name, :description, :url, :time
+  attr_accessor :name, :description, :url
 
   @@all = []
 
@@ -10,7 +10,5 @@ class WorkoutOfTheDay::Workout
   def self.all
     @@all
   end
-
-
 
 end
