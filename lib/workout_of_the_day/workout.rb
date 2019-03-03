@@ -1,16 +1,9 @@
 class WorkoutOfTheDay::Workout
-  attr_accessor :name
+  attr_accessor :name, :description, :url, :time
+
   @@all = []
 
   def self.all
-    # @@all << self
-    # puts <<-DOC
-    #   1. Crossfit: Saturday 190302
-    #   2. Rowing: 5000m with rate changes every 1000m: 22-26-22-26-22 r#andomly choose 1 of 3
-    #   3. Military: SOF WOD MAR 1
-    #   4. No Equipment, No Running Bodyweight WODs
-    # DOC
-
     workout_1 = self.new
     workout_1.name = "Crossfit: Saturday 190302"
 
@@ -25,5 +18,7 @@ class WorkoutOfTheDay::Workout
 
     [workout_1, workout_2, workout_3, workout_4]
   end
+
+
 
 end
