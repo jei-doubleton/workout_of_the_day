@@ -2,9 +2,15 @@ class WorkoutOfTheDay::CLI
   attr_reader :workout_input, :workout
 
   def call
-      list_workouts
-      workout_menu
-      goodbye
+    load_workouts
+    list_workouts
+    workout_menu
+    goodbye
+  end
+
+  def load_workouts
+    puts "Welcome to your daily workout! Your workout options are now loading."
+    WorkoutOfTheDay::Scraper.scrape_workouts
   end
 
   def list_workouts
@@ -31,7 +37,7 @@ class WorkoutOfTheDay::CLI
 
     while @workout_input != "exit"
       if @workout_input.to_i > 0
-        puts @workout[@workout_input.to_i - 1]
+        puts @workout[@workout_input.to_i - 1].description
       elsif @workout_input == "list"
         list_workouts
       elsif @workout_input != "exit"

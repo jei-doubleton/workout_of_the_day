@@ -14,8 +14,10 @@ class WorkoutOfTheDay::Scraper
     url = doc.search("h3 a").first.attr("href")
 
     workout = WorkoutOfTheDay::Workout.new
-    workout.name = name
+    workout.name = "Crossfit: #{name}"
     workout.url = "https://www.crossfit.com/#{url}"
+
+    #still need to add a scrape to grab description, based on workout.url
   end
 
   def self.scrape_rowing
@@ -24,7 +26,7 @@ class WorkoutOfTheDay::Scraper
 
     workouts.each do |w|
       workout = WorkoutOfTheDay::Workout.new
-      workout.name = "#{w.css("section h3").text}: #{w.css("section h4").first.text}"
+      workout.name = "Rowing: #{w.css("section h4").first.text} (#{w.css("section h3").text})"
       workout.description = "#{w.css("section h4 + p").text.strip}"
     end
   end
@@ -33,8 +35,10 @@ class WorkoutOfTheDay::Scraper
     doc = Nokogiri::HTML(open("http://sofwods.com/wods/"))
 
     workout = WorkoutOfTheDay::Workout.new
-    workout.name = doc.css("article h2").first.text.strip
+    workout.name = "Military: #{doc.css("article h2").first.text.strip}"
     workout.url = doc.css("article h2 a").first.attr("href")
+
+    #need to add a scrape to grab description, based on workout.url
   end
 
   def self.scrape_bodyweight
