@@ -43,14 +43,13 @@ class WorkoutOfTheDay::Scraper
 
   def scrape_bodyweight
     doc = Nokogiri::HTML(open("http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"))
-
     workout_names = doc.css("div#wDiv h3")
     workout_names.collect.with_index do |w, i|
       workout = WorkoutOfTheDay::Workout.new
       workout.name = w.text
       workout.url = "http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"
       workout_descriptions = doc.css("div#wDiv ol")[i].css("li")
-      workout.description = workout_descriptions[rand(0..workout_descriptions.length)].text
+      workout.description = workout_descriptions[rand(0..workout_descriptions.length-1)].text
     end
   end
 end
