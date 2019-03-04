@@ -6,18 +6,15 @@ This is a CLI app that allows users to find a workout of the day. The app scrape
 
 To test this CLI app, clone this repo and type:
 
-```ruby
-cd workout_of_the_day
-bundle install
-```
+`cd workout_of_the_day`
+`bundle install`
 
 ## Usage
 
 To start the app:
 
-```ruby
-./bin/workout_of_the_day
-```
+`./bin/workout_of_the_day`
+
 Follow the prompts to find your workout!
 
 ## Development
