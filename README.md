@@ -1,28 +1,24 @@
 # WorkoutOfTheDay
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/workout_of_the_day`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This is a CLI app that allows users to find a workout of the day. The app scrapes four website to find a variety of crossfit, rowing, military-style, and bodyweight exercises.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+To test this CLI app, clone this repo and type:
 
 ```ruby
-gem 'workout_of_the_day'
+cd workout_of_the_day
+bundle install
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install workout_of_the_day
 
 ## Usage
 
-TODO: Write usage instructions here
+To start the app:
+
+```ruby
+./bin/workout_of_the_day
+```
+Follow the prompts to find your workout!
 
 ## Development
 
