@@ -7,6 +7,7 @@ This is a CLI app that allows users to find a workout of the day. The app scrape
 To test this CLI app, clone this repo and type:
 
 `cd workout_of_the_day`
+
 `bundle install`
 
 ## Usage
