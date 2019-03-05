@@ -53,6 +53,7 @@ class WorkoutOfTheDay::Scraper
       url = "http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"
       workout_descriptions = doc.css("div#wDiv ol")[i].css("li")
       description = workout_descriptions[rand(0..workout_descriptions.length-1)].text
+      
       WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
     end
   end
