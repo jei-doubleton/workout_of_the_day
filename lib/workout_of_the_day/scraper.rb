@@ -1,10 +1,9 @@
-require 'pry'
 class WorkoutOfTheDay::Scraper
 
   def initialize
-    # scrape_crossfit
-    # scrape_rowing
-    # scrape_military
+    scrape_crossfit
+    scrape_rowing
+    scrape_military
     scrape_bodyweight
   end
 
@@ -14,7 +13,6 @@ class WorkoutOfTheDay::Scraper
 
   def scrape_crossfit
     doc = scrape_site("https://www.crossfit.com/workout/")
-binding.pry
     name = "Crossfit: #{doc.css("h3 a").first.text}"
     url = "https://www.crossfit.com#{doc.css("h3 a").first.attr("href")}"
     description = Nokogiri::HTML(open(url)).css("article").first.css("div p").text.gsub(/(Post).*(comments.)/, "").gsub("\n", "&&")

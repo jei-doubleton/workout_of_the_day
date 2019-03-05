@@ -33,7 +33,7 @@ class WorkoutOfTheDay::CLI
 
     @workout = WorkoutOfTheDay::Workout.all
     @workout.each.with_index(1) do |w, i|
-      puts "#{@@blue}#{i}. #{w.name}"
+      puts "#{@@green}#{i}. #{w.name}"
     end
 
     puts "#{@@default}"
