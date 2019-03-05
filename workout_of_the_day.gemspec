@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["'jennifer.singleton@gmail.com'"]
 
   spec.summary       = "Find a workout of the day"
+  spec.description   = "A simple gem that scrapes 4 sites to find you a unique workout"
   spec.homepage      = "https://github.com/jei-doubleton/workout_of_the_day"
   spec.license       = "MIT"
 

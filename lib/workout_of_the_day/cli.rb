@@ -10,18 +10,14 @@ class WorkoutOfTheDay::CLI
   @@default_bkgd = "\e[49m"
 
   def call
-
-    # Need to work on this flow!
-    # If you say Y to more_workouts?
-    # enter the workout you want
-    # after seeing workout, next prompt should be more_workouts?, not workout_menu!
-
     @workout_input = nil
+
     load_workouts
     list_workouts
+
     while @workout_input != "exit"
       workout_menu
-      more_workouts? unless @workout_input == "exit"
+      more_workouts?
     end
     goodbye
   end
@@ -43,25 +39,25 @@ class WorkoutOfTheDay::CLI
   end
 
   def workout_menu_instructions
-    puts "Enter the number of the workout you'd like details on, type list to see the workouts again, or type exit to leave the program."
+    puts "Enter the number of the workout you'd like to see #{@@green}(1-#{@workout.length})#{@@default}, type #{@@green}list#{@@default} to see the workouts again, or type #{@@green}exit#{@@default} to leave the program."
   end
 
   def invalid_input
-    puts "Invalid input."
-    workout_menu_instructions
+    puts "Whoops! That wasn't one of the choices. Please enter a different input:"
   end
 
   def workout_menu
     workout_menu_instructions
+
     input = gets.strip.downcase
+    chosen_workout = @workout[input.to_i - 1]
 
     if input.to_i > 0
-      @workout_input = input.to_i - 1
       puts ""
-      puts "#{@@gray_bkgd}#{@@black}-------#{@workout[@workout_input].name}-------#{@@default_bkgd}"
-      puts "#{@@green}#{@workout[@workout_input].description}"
+      puts "#{@@gray_bkgd}#{@@black}-------#{chosen_workout.name}-------#{@@default_bkgd}"
+      puts "#{@@green}#{chosen_workout.description}"
       puts ""
-      puts "#{@@default_bkgd}#{@@gray}From: #{@@blue}#{@workout[@workout_input].url}#{@@default}"
+      puts "#{@@default_bkgd}#{@@gray}Source: #{@@blue}#{chosen_workout.url}#{@@default}"
       puts ""
     elsif input == "list"
       list_workouts
@@ -69,18 +65,23 @@ class WorkoutOfTheDay::CLI
       @workout_input = "exit"
     else
       invalid_input
+      workout_menu_instructions
     end
   end
 
   def more_workouts?
-    puts "Would you like to see another workout? (y/n)"
-    input = gets.strip.downcase
-    if input == "y"
-      workout_menu
-    elsif input == "n"
-      @workout_input = "exit"
-    else
-      invalid_input
+    while @workout_input != "exit"
+      puts "Would you like to see another workout? (y/n)"
+      input = gets.strip.downcase
+      if input == "y"
+        workout_menu
+        more_workouts?
+      elsif input == "n"
+        @workout_input = "exit"
+      else
+        invalid_input
+        more_workouts?
+      end
     end
   end
 
