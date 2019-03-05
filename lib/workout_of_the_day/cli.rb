@@ -30,11 +30,12 @@ class WorkoutOfTheDay::CLI
   def list_workouts
     puts "Today's Daily Workouts:"
     puts ""
-    @workout = WorkoutOfTheDay::Workout.all
 
+    @workout = WorkoutOfTheDay::Workout.all
     @workout.each.with_index(1) do |w, i|
       puts "#{@@blue}#{i}. #{w.name}"
     end
+
     puts "#{@@default}"
   end
 
@@ -61,6 +62,7 @@ class WorkoutOfTheDay::CLI
       puts ""
     elsif input == "list"
       list_workouts
+      workout_menu
     elsif input == "exit"
       @workout_input = "exit"
     else
@@ -70,7 +72,7 @@ class WorkoutOfTheDay::CLI
   end
 
   def more_workouts?
-    while @workout_input != "exit"
+    unless @workout_input == "exit"
       puts "Would you like to see another workout? (y/n)"
       input = gets.strip.downcase
       if input == "y"
