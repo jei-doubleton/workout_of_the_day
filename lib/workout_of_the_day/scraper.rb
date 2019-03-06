@@ -2,9 +2,9 @@ class WorkoutOfTheDay::Scraper
 
   def initialize
     scrape_crossfit
-    # scrape_rowing
-    # scrape_military
-    # scrape_bodyweight
+    scrape_rowing
+    scrape_military
+    scrape_bodyweight
   end
 
   def scrape_site(url)
