@@ -73,7 +73,7 @@ class WorkoutOfTheDay::CLI
 
   def more_workouts?
     unless @workout_input == "exit"
-      puts "Would you like to see another workout? (y/n)"
+      puts "Would you like to see another workout? #{@@green}(y/n)#{@@default}"
       input = gets.strip.downcase
       if input == "y"
         workout_menu
