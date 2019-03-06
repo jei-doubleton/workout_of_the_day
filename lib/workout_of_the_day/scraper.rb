@@ -15,7 +15,7 @@ class WorkoutOfTheDay::Scraper
     doc = scrape_site("https://www.crossfit.com/workout/")
     name = "Crossfit: #{doc.css("h3 a").first.text}"
     url = "https://www.crossfit.com#{doc.css("h3 a").first.attr("href")}"
-    description = Nokogiri::HTML(open(url)).css("article").first.css("div p").text.gsub(/(Post).*(comments.)/, "").gsub("\n", "&&")
+    description = Nokogiri::HTML(open(url)).css("article").first.css("div p").text.gsub(/(Post).*(comments.)/, "")
 
     workout = WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
   end
@@ -53,7 +53,7 @@ class WorkoutOfTheDay::Scraper
       url = "http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"
       workout_descriptions = doc.css("div#wDiv ol")[i].css("li")
       description = workout_descriptions[rand(0..workout_descriptions.length-1)].text
-      
+
       WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
     end
   end

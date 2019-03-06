@@ -28,6 +28,7 @@ class WorkoutOfTheDay::CLI
   end
 
   def list_workouts
+    puts ""
     puts "Today's Daily Workouts:"
     puts ""
 
@@ -44,7 +45,9 @@ class WorkoutOfTheDay::CLI
   end
 
   def invalid_input
+    puts ""
     puts "Whoops! That wasn't one of the choices. Please enter a different input:"
+    puts ""
   end
 
   def workout_menu
@@ -53,7 +56,7 @@ class WorkoutOfTheDay::CLI
     input = gets.strip.downcase
     chosen_workout = @workout[input.to_i - 1]
 
-    if input.to_i > 0
+    if input.to_i > 0 && input.to_i <= @workout.length
       puts ""
       puts "#{@@gray_bkgd}#{@@black}-------#{chosen_workout.name}-------#{@@default_bkgd}"
       puts "#{@@green}#{chosen_workout.description}"
@@ -67,7 +70,7 @@ class WorkoutOfTheDay::CLI
       @workout_input = "exit"
     else
       invalid_input
-      workout_menu_instructions
+      workout_menu
     end
   end
 
@@ -88,7 +91,9 @@ class WorkoutOfTheDay::CLI
   end
 
   def goodbye
+    puts ""
     puts "See you tomorrow for your next workout!"
+    puts ""
   end
 
 end
