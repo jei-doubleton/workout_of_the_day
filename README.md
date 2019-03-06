@@ -1,4 +1,4 @@
-# WorkoutOfTheDay
+# Workout Of The Day
 
 This is a CLI app that allows users to find a workout of the day. The app scrapes four website to find a variety of crossfit, rowing, military-style, and bodyweight exercises.
 
