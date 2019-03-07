@@ -1,5 +1,5 @@
 class WorkoutOfTheDay::CLI
-  attr_reader :workout_input, :workout
+  attr_reader :workout_input, :workouts
 
   @@green = "\e[32m"
   @@blue = "\e[34m"
@@ -32,8 +32,8 @@ class WorkoutOfTheDay::CLI
     puts "Today's Daily Workouts:"
     puts ""
 
-    @workout = WorkoutOfTheDay::Workout.all
-    @workout.each.with_index(1) do |w, i|
+    @workouts = WorkoutOfTheDay::Workout.all
+    @workouts.each.with_index(1) do |w, i|
       puts "#{@@green}#{i}. #{w.name}"
     end
 
@@ -41,7 +41,7 @@ class WorkoutOfTheDay::CLI
   end
 
   def workout_menu_instructions
-    puts "Enter the number of the workout you'd like to see #{@@green}(1-#{@workout.length})#{@@default}, type #{@@green}list#{@@default} to see the workouts again, or type #{@@green}exit#{@@default} to leave the program."
+    puts "Enter the number of the workout you'd like to see #{@@green}(1-#{@workouts.length})#{@@default}, type #{@@green}list#{@@default} to see the workouts again, or type #{@@green}exit#{@@default} to leave the program."
   end
 
   def invalid_input
@@ -54,9 +54,9 @@ class WorkoutOfTheDay::CLI
     workout_menu_instructions
 
     input = gets.strip.downcase
-    chosen_workout = @workout[input.to_i - 1]
+    chosen_workout = @workouts[input.to_i - 1]
 
-    if input.to_i > 0 && input.to_i <= @workout.length
+    if input.to_i > 0 && input.to_i <= @workouts.length
       puts ""
       puts "#{@@gray_bkgd}#{@@black}-------#{chosen_workout.name}-------#{@@default_bkgd}"
       puts "#{@@green}#{chosen_workout.description}"
