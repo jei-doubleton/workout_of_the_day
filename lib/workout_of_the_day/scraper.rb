@@ -48,10 +48,10 @@ class WorkoutOfTheDay::Scraper
     doc = scrape_site("http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/")
     workout_names = doc.css("div#wDiv h3")
 
-    workout_names.collect.with_index do |w, i|
+    workout_names.collect do |w|
       name = w.text
       url = "http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"
-      workout_descriptions = doc.css("div#wDiv ol")[i].css("li")
+      workout_descriptions = doc.css("div#wDiv ol").css("li")
       description = workout_descriptions[rand(0..workout_descriptions.length-1)].text
 
       WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
