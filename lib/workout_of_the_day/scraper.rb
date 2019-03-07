@@ -17,7 +17,7 @@ class WorkoutOfTheDay::Scraper
     url = "https://www.crossfit.com#{doc.css("h3 a").first.attr("href")}"
     description = Nokogiri::HTML(open(url)).css("article").first.css("div").text.gsub(/(Post).*(comments.)/, "").gsub(/<br.*>/, "  ").strip
 
-    workout = WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
+    WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
   end
 
   def scrape_rowing
