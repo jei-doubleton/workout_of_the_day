@@ -25,7 +25,7 @@ class WorkoutOfTheDay::Scraper
 
     workouts = doc.css("table.daily-workout-info tr")
 
-    workouts.collect do |w|
+    workouts.each do |w|
       name = "Rowing: #{w.css("section h4").first.text} (#{w.css("section h3").text})"
       url = "https://www.concept2.com/indoor-rowers/training/wod"
       description = "#{w.css("section h4 + p").text.strip}"
@@ -48,7 +48,7 @@ class WorkoutOfTheDay::Scraper
     doc = scrape_site("http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/")
     workout_names = doc.css("div#wDiv h3")
 
-    workout_names.collect do |w|
+    workout_names.each do |w|
       name = w.text
       url = "http://www.thewodgenerator.com/resources/bodyweight-wods-the-definitive-list-of-149-bodyweight-workouts/"
       workout_descriptions = doc.css("div#wDiv ol").css("li")

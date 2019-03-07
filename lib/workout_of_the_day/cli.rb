@@ -1,5 +1,4 @@
 class WorkoutOfTheDay::CLI
-  attr_reader :workout_input, :workouts
 
   @@green = "\e[32m"
   @@blue = "\e[34m"
@@ -33,7 +32,12 @@ class WorkoutOfTheDay::CLI
     puts ""
 
     @workouts = WorkoutOfTheDay::Workout.all
-    @workouts.each.with_index(1) do |w, i|
+
+    sorted_workouts = @workouts.sort do |a, b|
+      a.name <=> b.name
+    end
+
+    sorted_workouts.each.with_index(1) do |w, i|
       puts "#{@@green}#{i}. #{w.name}"
     end
 
