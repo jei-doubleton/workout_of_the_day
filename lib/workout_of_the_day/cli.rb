@@ -54,9 +54,9 @@ class WorkoutOfTheDay::CLI
     workout_menu_instructions
 
     input = gets.strip.downcase
-    chosen_workout = @workouts[input.to_i - 1]
 
     if input.to_i > 0 && input.to_i <= @workouts.length
+      chosen_workout = @workouts[input.to_i - 1]
       puts ""
       puts "#{@@gray_bkgd}#{@@black}-------#{chosen_workout.name}-------#{@@default_bkgd}"
       puts "#{@@green}#{chosen_workout.description}"
