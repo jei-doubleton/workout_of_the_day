@@ -15,7 +15,7 @@ class WorkoutOfTheDay::Scraper
     doc = scrape_site("https://www.crossfit.com/workout/")
     name = "Crossfit: #{doc.css("h3 a").first.text}"
     url = "https://www.crossfit.com#{doc.css("h3 a").first.attr("href")}"
-    description = Nokogiri::HTML(open(url)).css("article").first.css("div").text.gsub(/(Post).*(comments.)/, "").gsub(/<br.*>/, "  ").strip
+    description = scrape_site(url).css("article").first.css("div").text.gsub(/(Post).*(comments.)/, "").gsub(/<br.*>/, "  ").strip
 
     WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
   end
@@ -39,7 +39,7 @@ class WorkoutOfTheDay::Scraper
 
     name = "Military: #{doc.css("article h2").first.text.strip}"
     url = doc.css("article h2 a").first.attr("href")
-    description = Nokogiri::HTML(open(url)).css("div.content-inner").text.gsub(/(<p>)|(<br.*>)/, "&&").strip
+    description = scrape_site(url).css("div.content-inner").text.gsub(/(<p>)|(<br.*>)/, "&&").strip
 
     WorkoutOfTheDay::Workout.new(name: name, url: url, description: description)
   end
