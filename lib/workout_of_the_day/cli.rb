@@ -31,13 +31,11 @@ class WorkoutOfTheDay::CLI
     puts "Today's Daily Workouts:"
     puts ""
 
-    @workouts = WorkoutOfTheDay::Workout.all
-
-    sorted_workouts = @workouts.sort do |a, b|
+    @workouts = WorkoutOfTheDay::Workout.all.sort do |a, b|
       a.name <=> b.name
     end
 
-    sorted_workouts.each.with_index(1) do |w, i|
+    @workouts.each.with_index(1) do |w, i|
       puts "#{@@green}#{i}. #{w.name}"
     end
 
